@@ -46,7 +46,12 @@ const config = {
           showReadingTime: true,
           readingTime: ({content, frontMatter, defaultReadingTime}) =>
             defaultReadingTime({content, options: {wordsPerMinute: 300}}),
+            
           // Please change this to your repo.
+          feedOptions: {
+            type: 'all',
+            copyright: `Copyright © ${new Date().getFullYear()} 0xMRTT`,
+          },
           // Remove this to remove the "edit this page" links.
           editUrl:
             'https://github.com/0xMRTT/0xMRTT.github.io/edit/main/blog/',
