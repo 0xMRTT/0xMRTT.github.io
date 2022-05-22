@@ -54,7 +54,7 @@ const config = {
           },
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/0xMRTT/0xMRTT.github.io/edit/main/blog/',
+            'https://github.com/0xMRTT/0xMRTT.github.io/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
