@@ -99,11 +99,11 @@ const config = {
             items: [
               {
                 label: 'List',
-                to: '/docs/intro',
+                to: '/docs/projects',
               },
               {
                 label: 'Featured project 1',
-                to: '/docs/project-1/overview',
+                to: '/docs/projects/project-1/overview',
               },
             ],
           },
