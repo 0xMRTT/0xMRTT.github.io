@@ -1,7 +1,7 @@
 ---
 slug: first-blog-post
 title: First Blog Post
-author: 0xMRTT
+author: mrtt
 tags: [blog, website, docusaurus]
 ---
 
