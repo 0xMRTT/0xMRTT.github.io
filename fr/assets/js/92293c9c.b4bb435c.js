@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_0_x_mrtt_github_io=self.webpackChunk_0_x_mrtt_github_io||[]).push([[136],{2249:function(t){t.exports=JSON.parse('[{"label":"blog","permalink":"/fr/blog/tags/blog","count":1},{"label":"website","permalink":"/fr/blog/tags/website","count":1},{"label":"docusaurus","permalink":"/fr/blog/tags/docusaurus","count":1}]')}}]);
