@@ -16,7 +16,7 @@
         <summary type="html"><![CDATA[Hello, world!]]></summary>
         <content type="html"><![CDATA[<p>Hello, world!</p><p>Today, I will start publishing article on my blog.</p><p>It's made with Docusaurus. Thanks.</p>]]></content>
         <author>
-            <name>0xMRTT</name>
+            <name>mrtt</name>
         </author>
         <category label="blog" term="blog"/>
         <category label="website" term="website"/>
