@@ -135,6 +135,10 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/0xMRTT',
               },
+              {
+                label: "Status",
+                href: 'https://github.com/0xMRTT/0xMRTT.github.io/actions',
+              }
             ],
           },
         ],
