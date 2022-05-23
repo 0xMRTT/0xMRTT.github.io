@@ -105,8 +105,8 @@ const config = {
                 to: '/docs/projects',
               },
               {
-                label: 'Featured project 1',
-                to: '/docs/projects/project-1/overview',
+                label: 'CNP',
+                to: '/docs/cnp/why',
               },
             ],
           },
