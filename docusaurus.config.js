@@ -29,7 +29,23 @@ const config = {
     defaultLocale: 'en',
     locales: ['en', 'fr'],
   },
-
+  themes: [
+    // ... Your other themes.
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      {
+        // ... Your options.
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        // For Docs using Chinese, The `language` is recommended to set to:
+        // ```
+        // language: ["en", "zh"],
+        // ```
+        indexPages: true,
+        
+      },
+    ],
+  ],
   presets: [
     [
       'classic',
@@ -141,7 +157,7 @@ const config = {
               {
                 label: "Status",
                 href: 'https://github.com/0xMRTT/0xMRTT.github.io/actions',
-              }
+              },
             ],
           },
         ],
