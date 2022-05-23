@@ -42,8 +42,11 @@ const config = {
         // language: ["en", "zh"],
         // ```
         indexPages: true,
-        
+
       },
+    ], 
+    [
+      require.resolve('@docusaurus/theme-live-codeblock'), {}
     ],
   ],
   presets: [
@@ -171,6 +174,13 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      liveCodeBlock: {
+        /**
+         * The position of the live playground, above or under the editor
+         * Possible values: "top" | "bottom"
+         */
+        playgroundPosition: 'bottom',
       },
     }),
 };
