@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Congratulations!
 
-You have just learned the **basics of CNP** and **created** your first project using CNP.
+You have just learned the **basics of CNP** and **created** your first project using CNP with the basic template.
 
 CNP has **much more to offer**!
 
