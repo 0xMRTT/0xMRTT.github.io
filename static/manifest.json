@@ -1,0 +1,16 @@
+{
+    "short_name": "0xMRTT",
+    "name": "0xMRTT",
+    "icons": [
+      {
+        "src": "/img/logo.svg",
+        "type": "image/svg+xml",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/?source=pwa",
+    "display": "standalone",
+    "scope": "/",
+    
+    "description": "0xMRTT"
+  }

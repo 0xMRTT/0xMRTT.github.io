@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "2.0.0-beta.20",
+    "@docusaurus/plugin-pwa": "^2.0.0-beta.20",
     "@docusaurus/preset-classic": "2.0.0-beta.20",
     "@docusaurus/theme-live-codeblock": "^2.0.0-beta.20",
     "@easyops-cn/docusaurus-search-local": "^0.25.0",
