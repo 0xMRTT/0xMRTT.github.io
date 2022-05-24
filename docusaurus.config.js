@@ -133,10 +133,7 @@ const config = {
             label: 'Projects',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            type: 'localeDropdown',
-            position: 'left',
-          },
+          
           {
             href: 'https://github.com/0xMRTT',
             label: 'GitHub',
