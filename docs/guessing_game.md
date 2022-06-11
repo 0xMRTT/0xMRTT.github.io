@@ -15,3 +15,11 @@ chmod +x guessing_game
 
 Free to submit pull request or open issue.
 
+## Thanks
+
+Thanks to this awesome rust libs:
+* console 
+* emojicon 
+* inquire 
+* rand 
+* requestty 
