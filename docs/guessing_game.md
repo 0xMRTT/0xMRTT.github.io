@@ -1,6 +1,6 @@
 # Guessing game
 
-<script id="asciicast-501023" src="https://asciinema.org/a/501023.js" async></script>
+[![asciicast](https://asciinema.org/a/501023.svg)](https://asciinema.org/a/501023)
 ## Install
 
 Download game <a href='https://github.com/0xMRTT/guessing_game/releases/download/0.1.0/guessing_game'>here</a> and run it (`chmod +x guessing_game; ./guessing_game`)
