@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_0_x_mrtt_github_io=self.webpackChunk_0_x_mrtt_github_io||[]).push([[3249],{893:function(t){t.exports=JSON.parse('{"title":"MQTT2DB","slug":"/category/mqtt2db","permalink":"/docs/category/mqtt2db","navigation":{"previous":{"title":"Guessing game","permalink":"/docs/guessing_game"},"next":{"title":"Why ?","permalink":"/docs/mqtt2db/why"}}}')}}]);
