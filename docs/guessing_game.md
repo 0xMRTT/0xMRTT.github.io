@@ -3,7 +3,7 @@
 <script id="asciicast-501023" src="https://asciinema.org/a/501023.js" async></script>
 ## Install
 
-Download game <a href={require('static/guessing_game/0.1.0/guessing_game')}>here</a> and run it (`chmod +x guessing_game; ./guessing_game`)
+Download game <a href='https://github.com/0xMRTT/guessing_game/releases/download/0.1.0/guessing_game'>here</a> and run it (`chmod +x guessing_game; ./guessing_game`)
 
 Or you can use command line
 ```
