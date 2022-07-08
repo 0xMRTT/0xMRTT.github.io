@@ -4511,135 +4511,100 @@ __webpack_require__.r(__webpack_exports__);
  */
 /* eslint-disable no-restricted-globals */
 
-
-
 function parseSwParams() {
-  const params = JSON.parse(
-    new URLSearchParams(self.location.search).get('params'),
-  );
-  if (params.debug) {
-    console.log('[Docusaurus-PWA][SW]: Service Worker params:', params);
-  }
-  return params;
+    const params = JSON.parse(new URLSearchParams(self.location.search).get('params'));
+    if (params.debug) {
+        console.log('[Docusaurus-PWA][SW]: Service Worker params:', params);
+    }
+    return params;
 }
-
 // Doc advises against dynamic imports in SW
 // https://developers.google.com/web/tools/workbox/guides/using-bundlers#code_splitting_and_dynamic_imports
 // https://twitter.com/sebastienlorber/status/1280155204575518720
 // but looks it's working fine as it's inlined by webpack, need to double check
 async function runSWCustomCode(params) {
-  if (false) {}
+    if (false) {}
 }
-
 /**
  * Gets different possible variations for a request URL. Similar to
  * https://git.io/JvixK
- *
- * @param {string} url
  */
 function getPossibleURLs(url) {
-  const possibleURLs = [];
-  const urlObject = new URL(url, self.location.href);
-
-  if (urlObject.origin !== self.location.origin) {
-    return possibleURLs;
-  }
-
-  // Ignore search params and hash
-  urlObject.search = '';
-  urlObject.hash = '';
-
-  // /blog.html
-  possibleURLs.push(urlObject.href);
-
-  // /blog/ => /blog/index.html
-  if (urlObject.pathname.endsWith('/')) {
-    possibleURLs.push(`${urlObject.href}index.html`);
-  } else {
-    // /blog => /blog/index.html
-    possibleURLs.push(`${urlObject.href}/index.html`);
-  }
-
-  return possibleURLs;
+    const urlObject = new URL(url, self.location.href);
+    if (urlObject.origin !== self.location.origin) {
+        return [];
+    }
+    // Ignore search params and hash
+    urlObject.search = '';
+    urlObject.hash = '';
+    return [
+        // /blog.html
+        urlObject.href,
+        // /blog/ => /blog/index.html
+        // /blog => /blog/index.html
+        `${urlObject.href}${urlObject.pathname.endsWith('/') ? '' : '/'}index.html`,
+    ];
 }
-
 (async () => {
-  const params = parseSwParams();
-
-  // eslint-disable-next-line no-underscore-dangle
-  const precacheManifest = [{"revision":"6df0e1807f1e0051ee0600f2dbe2f587","url":"404.html"},{"revision":"cc4842cc075e151481f88c52100e6715","url":"about.html"},{"revision":"c861468ac2ae382851a7459dd7d9a984","url":"assets/css/styles.f0bc8495.css"},{"revision":"4ff68d0a2270503dd74b814f7f71ec60","url":"assets/js/01a85c17.858c0d27.js"},{"revision":"6d7d74d850d575bcaafca477f1727993","url":"assets/js/020c6ced.1a73ddd4.js"},{"revision":"0340e08b04ec085fdd4cef607206db3c","url":"assets/js/07af5592.0c4e4db2.js"},{"revision":"13e9ae1c90e5036124ddcdc84139c82f","url":"assets/js/0978d327.0ae3c883.js"},{"revision":"8d74f108a729e9b3e7f5530a2b3a9ae5","url":"assets/js/0e50b798.efd126b9.js"},{"revision":"95a6cc8de0baf4abc8d3f34ec7c6d3b7","url":"assets/js/1465.c5c1fb25.js"},{"revision":"71d128a297e9a06df621d7bd03f0790b","url":"assets/js/14eb3368.7d6e1d71.js"},{"revision":"0e530aca5b040794ba358bcff02acf41","url":"assets/js/17896441.2d0ce639.js"},{"revision":"13e89b593cbe70fdbc60b61445331b56","url":"assets/js/18be8d0c.02e4f665.js"},{"revision":"4ce43d3735606cede129b6e3b23f730b","url":"assets/js/1a4e3797.16ae948d.js"},{"revision":"16aea39aa8d61f25cec8468839bad9f9","url":"assets/js/1be78505.38ef8a1a.js"},{"revision":"f975ff1c7ba22e108f9da5cd25d4e73e","url":"assets/js/1f391b9e.22ba55d6.js"},{"revision":"943a2eac8048d087c0b481ac317c3166","url":"assets/js/230.6fe1636c.js"},{"revision":"78501022cdc5407c4c67e0c309d31281","url":"assets/js/2539c0c6.b15c3313.js"},{"revision":"6ba2e383449fab5485e3540ecc04ff93","url":"assets/js/3152febb.f90aefdd.js"},{"revision":"1d56bb027f397b6794d04a4581a74e93","url":"assets/js/356a0ac6.a9b5faac.js"},{"revision":"d461ef90782dc95222d17e283cb8a095","url":"assets/js/393be207.8c39e967.js"},{"revision":"e4214197d39b7d871d8c202610597992","url":"assets/js/3f3a03c1.a18407b9.js"},{"revision":"2efae467d1a420f197c0dffeb1c52815","url":"assets/js/4608.79466164.js"},{"revision":"679fc17b47468ad2cdeb302050a2db6f","url":"assets/js/46133e1b.211c1d82.js"},{"revision":"01649d6949f9740c5b5f5a0dc722f4ac","url":"assets/js/5131.bc8831d7.js"},{"revision":"353502033fa71a10ecc8e7b5cd27dd48","url":"assets/js/5166.5b79c9cb.js"},{"revision":"d77f342fab6d4ea351f1844aef9f0c04","url":"assets/js/5283.af5e4b62.js"},{"revision":"9e19a1595c32410993df366c8757152c","url":"assets/js/5525.87dcf45c.js"},{"revision":"6f08d88e4ae8a8e1cc64bf28c47c01f2","url":"assets/js/5fa34759.d1c5a1e7.js"},{"revision":"310c0ab57d1f3b7dcddf8a60ed4c7b61","url":"assets/js/608ae6a4.1a482143.js"},{"revision":"1f770201a45a36c388d4b1570a661dac","url":"assets/js/631037e5.8114db66.js"},{"revision":"0c3a546461b7e36c27018404edb6513b","url":"assets/js/6875c492.68ef2936.js"},{"revision":"c353fabbefb79ae70f263ff6788ff86c","url":"assets/js/6edb1edd.cf408c06.js"},{"revision":"1bcb03fb896490ddcb77b5f24da6f9a5","url":"assets/js/78e1a3d9.c7c1ce2e.js"},{"revision":"82029a202db7e937f6b50ab02695b62c","url":"assets/js/7c8526bc.89c6a076.js"},{"revision":"0d5326a0d42d8ba168a22bb98af12b49","url":"assets/js/814f3328.4f6fb103.js"},{"revision":"7a05a9ef6c39abec3eeb6ec983bbeed5","url":"assets/js/8443.76da9c93.js"},{"revision":"f36efb00210fb05f5e8c9c363ca08b17","url":"assets/js/8b1fede0.145c049e.js"},{"revision":"9b9339b43b3790d9864d8284f13a63e0","url":"assets/js/8ba31331.cf696bd7.js"},{"revision":"07e97eacc95e00eb9cd8b42cf13cb36e","url":"assets/js/935f2afb.917240f9.js"},{"revision":"ce3a89228ce0f168f3c3a654b93304e3","url":"assets/js/9e4087bc.e079cfb0.js"},{"revision":"1da008a889aa95c76cf7c8167ec3f91e","url":"assets/js/a49d54d7.28040b6c.js"},{"revision":"e106e50b5838aa73a709ca72283d8166","url":"assets/js/a51fe647.8362bb66.js"},{"revision":"0b375f9ecbfa9bb741695c40ea6f5bb5","url":"assets/js/a6aa9e1f.3bc1f586.js"},{"revision":"a124122cf1373d71e74b27f109a390c6","url":"assets/js/a7023ddc.2d1f4aba.js"},{"revision":"e2e52b826089d618270402e541f533e6","url":"assets/js/a80da1cf.759d0846.js"},{"revision":"9b266471cdc541cec95026555c54cfbb","url":"assets/js/a8878f80.99863cf9.js"},{"revision":"70f51cd052986df2f11010fd656b715f","url":"assets/js/b2b675dd.47abc168.js"},{"revision":"7d186974cc1e253c9a46551c1b8ee696","url":"assets/js/b2f554cd.39955831.js"},{"revision":"36b6d3e418e731c8549c1232a986085a","url":"assets/js/be0fc59d.8feaac6d.js"},{"revision":"9eb092e5639189d724bb9d5fe1a25eb0","url":"assets/js/c4f5d8e4.e9c186c7.js"},{"revision":"72b75f246f55f26f8b3e89778d3dbea8","url":"assets/js/c79144c6.f61863c8.js"},{"revision":"768ba472d0952f6b66eec9af4039e316","url":"assets/js/c87ab596.c0be5a8d.js"},{"revision":"a4ac7eb65166db2522bbb46faf49c6e0","url":"assets/js/ccc49370.00f1f113.js"},{"revision":"423821b7764a6f64ab4324a8695a5a69","url":"assets/js/d195a531.063fb165.js"},{"revision":"b99fbb6d2b7592bb7308b7b92e8532b1","url":"assets/js/d6f193d2.8c2cf3f8.js"},{"revision":"35dc78076cc903c4cd835840e90f19e6","url":"assets/js/e3b0a851.2bb4f2b6.js"},{"revision":"f3bca04ff4dca6d9d0381cf286334226","url":"assets/js/ea0058cf.cc05ad0e.js"},{"revision":"c555978fd0e187615bb8dcb6d580d53c","url":"assets/js/ef5c90a0.19cd9096.js"},{"revision":"c91c526b8dc58ae9d22d184e5f9f0054","url":"assets/js/f2e84728.f762f92d.js"},{"revision":"3360b950d3faa0c3642d80ce7b6b6af0","url":"assets/js/f5bf02f1.e5fab71d.js"},{"revision":"bc5549017a78b54a844e8dd215cac1b8","url":"assets/js/fee6ac9e.8186e260.js"},{"revision":"dd325a5cf6509c965c0115bb0d8aea0e","url":"assets/js/main.e25f6442.js"},{"revision":"45abcfbbcae1a8804e4ea850c2a53466","url":"assets/js/runtime~main.d296b991.js"},{"revision":"35a63537e8983b2ce6d98406a7ff1d66","url":"blog.html"},{"revision":"1a0db76a1157b5d8d5d8211f0823d8a5","url":"blog/archive.html"},{"revision":"42ed2c67b53bdc9495849ee0992b65d9","url":"blog/feed.json"},{"revision":"1741746384b3ba69cfdfda3fdfa877ef","url":"blog/first-blog-post.html"},{"revision":"76355c8470fdc68bd10aed3604255097","url":"blog/tags.html"},{"revision":"141a07d838f4931b9329f7f0c699f292","url":"blog/tags/blog.html"},{"revision":"8c09c0fb3a978ad9b20c98860c7b3cfd","url":"blog/tags/docusaurus.html"},{"revision":"6af278abb354f9e4ea5294c10f8d40a4","url":"blog/tags/website.html"},{"revision":"915beffcc7e734685ce7a2200b9739b2","url":"docs/category/advanced.html"},{"revision":"690742cc388c4f38bca032f584f84cd2","url":"docs/category/cnp.html"},{"revision":"7fdaf34930bd14620fee2f1035d1ecaa","url":"docs/category/getting-started-1.html"},{"revision":"bb04e10e683799bcedccc7322d9e1c22","url":"docs/category/getting-started.html"},{"revision":"525bcb2f4b60ceec8abca10284bbb488","url":"docs/category/mqtt2db.html"},{"revision":"77d039219f63330bcba048341c6c9037","url":"docs/cnp/advanced/config.html"},{"revision":"20873f75ed769f95d49f29ceee5ae971","url":"docs/cnp/community/contribute.html"},{"revision":"1238d7aa736648869e4fcf2ee12e2bda","url":"docs/cnp/getting-started/congratulations.html"},{"revision":"760fbff483a46211d2b5c94a46609676","url":"docs/cnp/getting-started/create-new-project.html"},{"revision":"71c0202d82e9154dbf7b2046425b4dd1","url":"docs/cnp/getting-started/install.html"},{"revision":"b36b3b2ea3c312980c7dc8af3aaa1e98","url":"docs/cnp/templates/create-template.html"},{"revision":"e68d472829c3d4cbd79703720dad2ce9","url":"docs/cnp/templates/publish-template.html"},{"revision":"c5d53ac671ce6372bdbd7da6428c5470","url":"docs/cnp/why.html"},{"revision":"8e4bb2bff4bd1b35eda21f86aac630c0","url":"docs/crs/getting-started.html"},{"revision":"c55778756fb3c2010eece1bd60a9ee55","url":"docs/guessing_game.html"},{"revision":"84e2ab5ca1e7ab10f228f5e84afcd411","url":"docs/mqtt2db/getting-started/install.html"},{"revision":"e5d885391bd4181c21f9050543f6d780","url":"docs/mqtt2db/getting-started/mqtt2db.html"},{"revision":"422002b23bd93ca81581b1ca1762ba99","url":"docs/mqtt2db/getting-started/start.html"},{"revision":"2f3c1447635d934dc7cc529ee6d82b3c","url":"docs/mqtt2db/why.html"},{"revision":"354c55a04e0d34dc26f8e4ac352a0165","url":"docs/projects.html"},{"revision":"1f63852fd3060862fde2667fd64d2a72","url":"index.html"},{"revision":"b15af20c80923ca6f414587bf2e7b64d","url":"manifest.json"},{"revision":"a2dd46ea37de796d9088f3989a7510c7","url":"markdown-page.html"},{"revision":"7339c42c2dc3a38af3e76f534847d9c7","url":"search-index.json"},{"revision":"e99f457bf35ebf8c43ee6883376676e3","url":"search.html"},{"revision":"7fa1a026116afe175cae818030d4ffc4","url":"img/docusaurus.png"},{"revision":"4343e07bf942aefb5f334501958fbc0e","url":"img/favicon.ico"},{"revision":"aa4fa2cdc39d33f2ee3b8f245b6d30d9","url":"img/logo.svg"},{"revision":"a6b83d7b4c3cf36cb21eb7a9721716dd","url":"img/undraw_docusaurus_mountain.svg"},{"revision":"b64ae8e3c10e5ff2ec85a653cfe6edf8","url":"img/undraw_docusaurus_react.svg"},{"revision":"8fa6e79a15c385d7b2dc4bb761a2e9e3","url":"img/undraw_docusaurus_tree.svg"}];
-  const controller = new workbox_precaching__WEBPACK_IMPORTED_MODULE_0__.PrecacheController({
-    // Safer to turn this true?
-    fallbackToNetwork: true,
-  });
-
-  if (params.offlineMode) {
-    controller.addToCacheList(precacheManifest);
-    if (params.debug) {
-      console.log('[Docusaurus-PWA][SW]: addToCacheList', {
-        precacheManifest,
-      });
-    }
-  }
-
-  await runSWCustomCode(params);
-
-  self.addEventListener('install', (event) => {
-    if (params.debug) {
-      console.log('[Docusaurus-PWA][SW]: install event', {
-        event,
-      });
-    }
-    event.waitUntil(controller.install(event));
-  });
-
-  self.addEventListener('activate', (event) => {
-    if (params.debug) {
-      console.log('[Docusaurus-PWA][SW]: activate event', {
-        event,
-      });
-    }
-    event.waitUntil(controller.activate(event));
-  });
-
-  self.addEventListener('fetch', async (event) => {
+    const params = parseSwParams();
+    // eslint-disable-next-line no-underscore-dangle
+    const precacheManifest = [{"revision":"10236529f4fed951ef4f73beeaf89733","url":"404.html"},{"revision":"cc830b00026ef96f2e2baf63fc620f1e","url":"about.html"},{"revision":"55835f8cb76ee8ee2827493920ecd17b","url":"assets/css/styles.2a630c55.css"},{"revision":"06ea6558ff18435c2c30bc289818f7f6","url":"assets/js/01a85c17.e339b4cb.js"},{"revision":"9968ab167576cbeb3cbe2ba778a1d12a","url":"assets/js/020c6ced.e416c08f.js"},{"revision":"ba16268d9cddcf60e0f3439a2d35493f","url":"assets/js/07af5592.cc2fd64b.js"},{"revision":"13e9ae1c90e5036124ddcdc84139c82f","url":"assets/js/0978d327.0ae3c883.js"},{"revision":"b31c3d828e8837ad8f72537743e25fa7","url":"assets/js/0e50b798.1a7ed62d.js"},{"revision":"e3f960fc14cf74107b8578705c26d404","url":"assets/js/14eb3368.35a39209.js"},{"revision":"5d3595fde491204fbe5b2d3fafdb0d78","url":"assets/js/17896441.db98814d.js"},{"revision":"b2d8897854764e05ffb6de8ca8f5ba77","url":"assets/js/18be8d0c.02292ce7.js"},{"revision":"7bd1e7029935d6076577f7152afd3743","url":"assets/js/1a4e3797.f9125405.js"},{"revision":"080422c76f7cec261a7584ff7e3b5dca","url":"assets/js/1be78505.23bf3730.js"},{"revision":"cf6628738e514dd616fc6a9c14efe694","url":"assets/js/1f391b9e.6bdf6373.js"},{"revision":"c2b23890d21806ea502d4fd96929516e","url":"assets/js/2539.12b67283.js"},{"revision":"78501022cdc5407c4c67e0c309d31281","url":"assets/js/2539c0c6.b15c3313.js"},{"revision":"0809c9f37728f6c17cf995bb7e66e078","url":"assets/js/2983.783b2f75.js"},{"revision":"6ba2e383449fab5485e3540ecc04ff93","url":"assets/js/3152febb.f90aefdd.js"},{"revision":"01d7c0119761bff49a3feb06b1c2addf","url":"assets/js/356a0ac6.99f9ef3b.js"},{"revision":"a5d1e5c65ffc0d9dacb8a977a1bc8deb","url":"assets/js/393be207.fb32192f.js"},{"revision":"e4214197d39b7d871d8c202610597992","url":"assets/js/3f3a03c1.a18407b9.js"},{"revision":"a8585530a98f887123c7602a23264c9f","url":"assets/js/46133e1b.14e03c6f.js"},{"revision":"37594830fb59e2604b24466c597871c8","url":"assets/js/4972.c4f159aa.js"},{"revision":"01649d6949f9740c5b5f5a0dc722f4ac","url":"assets/js/5131.bc8831d7.js"},{"revision":"bca5416dda21be315d7b339c4b4d894f","url":"assets/js/5283.0115fe3f.js"},{"revision":"9e19a1595c32410993df366c8757152c","url":"assets/js/5525.87dcf45c.js"},{"revision":"6f08d88e4ae8a8e1cc64bf28c47c01f2","url":"assets/js/5fa34759.d1c5a1e7.js"},{"revision":"310c0ab57d1f3b7dcddf8a60ed4c7b61","url":"assets/js/608ae6a4.1a482143.js"},{"revision":"1f770201a45a36c388d4b1570a661dac","url":"assets/js/631037e5.8114db66.js"},{"revision":"eb1e1aa06d0e63f17076aec2914e727c","url":"assets/js/6875c492.83cc6a83.js"},{"revision":"e11918199874eab9cbd66e6a19924021","url":"assets/js/6edb1edd.e476f542.js"},{"revision":"5fe2b0462a722e1c1070fd46d2112558","url":"assets/js/7169.3bb2e8fe.js"},{"revision":"1bcb03fb896490ddcb77b5f24da6f9a5","url":"assets/js/78e1a3d9.c7c1ce2e.js"},{"revision":"5b568e899a9c95b2b9f8b610f716d7d6","url":"assets/js/7c8526bc.011a7738.js"},{"revision":"0d5326a0d42d8ba168a22bb98af12b49","url":"assets/js/814f3328.4f6fb103.js"},{"revision":"7a05a9ef6c39abec3eeb6ec983bbeed5","url":"assets/js/8443.76da9c93.js"},{"revision":"b0bfd0767f3066af1e5157eba6849093","url":"assets/js/8b1fede0.f4022910.js"},{"revision":"dc6b8d3f81d5551b79cab1a28feafb62","url":"assets/js/8ba31331.5a3c36f0.js"},{"revision":"07e97eacc95e00eb9cd8b42cf13cb36e","url":"assets/js/935f2afb.917240f9.js"},{"revision":"49c9eb87c5dc7b22febe6b5d982d7fe4","url":"assets/js/9e4087bc.ced5e4ed.js"},{"revision":"1da008a889aa95c76cf7c8167ec3f91e","url":"assets/js/a49d54d7.28040b6c.js"},{"revision":"f1dfcee876ce8366828bbe998a842816","url":"assets/js/a51fe647.464361d0.js"},{"revision":"e4e65344d55b5409e7811269c06b9495","url":"assets/js/a6aa9e1f.e0b4b54c.js"},{"revision":"a124122cf1373d71e74b27f109a390c6","url":"assets/js/a7023ddc.2d1f4aba.js"},{"revision":"e2e52b826089d618270402e541f533e6","url":"assets/js/a80da1cf.759d0846.js"},{"revision":"9b266471cdc541cec95026555c54cfbb","url":"assets/js/a8878f80.99863cf9.js"},{"revision":"70f51cd052986df2f11010fd656b715f","url":"assets/js/b2b675dd.47abc168.js"},{"revision":"7d186974cc1e253c9a46551c1b8ee696","url":"assets/js/b2f554cd.39955831.js"},{"revision":"e2a2a4af2d4dc095a603224305611fb8","url":"assets/js/be0fc59d.ea14d384.js"},{"revision":"22ae5968c9c11539339d25364e67aa65","url":"assets/js/c4f5d8e4.21b8d6c7.js"},{"revision":"72b75f246f55f26f8b3e89778d3dbea8","url":"assets/js/c79144c6.f61863c8.js"},{"revision":"84a06ef0ec9891ce66d2b6ebe15e347a","url":"assets/js/c87ab596.4de7712f.js"},{"revision":"4e40f079fc8249eb232e3772bce8d375","url":"assets/js/ccc49370.a6171e51.js"},{"revision":"a0ab39a603e2a0c8265fd51ccc2a65f7","url":"assets/js/d195a531.dd1e702e.js"},{"revision":"b99fbb6d2b7592bb7308b7b92e8532b1","url":"assets/js/d6f193d2.8c2cf3f8.js"},{"revision":"52c33eeac258667c6ee46d7729df903c","url":"assets/js/e3b0a851.16d681c5.js"},{"revision":"4cddb5f76a86abae6a7a579f0b1efaf9","url":"assets/js/ea0058cf.dca8d9e7.js"},{"revision":"c555978fd0e187615bb8dcb6d580d53c","url":"assets/js/ef5c90a0.19cd9096.js"},{"revision":"11dadffa55ad26624f2f10c83ced259d","url":"assets/js/f2e84728.edd2dc66.js"},{"revision":"3360b950d3faa0c3642d80ce7b6b6af0","url":"assets/js/f5bf02f1.e5fab71d.js"},{"revision":"588fa77aaf3d488227f59d94d8b573f3","url":"assets/js/fee6ac9e.bf9718cd.js"},{"revision":"0a3a33e060fae6e2d689fa462623bcde","url":"assets/js/main.38c35350.js"},{"revision":"acc3912b766a1496bf851c4e8fbc565a","url":"assets/js/runtime~main.bca30c96.js"},{"revision":"ae3fd9345c2f3c0c52993c8e640639e9","url":"blog.html"},{"revision":"0d1d15f055e7bb6a4a7a24961e37d953","url":"blog/archive.html"},{"revision":"42ed2c67b53bdc9495849ee0992b65d9","url":"blog/feed.json"},{"revision":"4b97c9a4e3fe96db3b0871652f69418d","url":"blog/first-blog-post.html"},{"revision":"4d7a12ea4076d741dc02ed41bff95a4e","url":"blog/tags.html"},{"revision":"d0501ce422c9bfa2ab9f953b0f945aad","url":"blog/tags/blog.html"},{"revision":"9ee863231f7611b116c3db9b8bbaa335","url":"blog/tags/docusaurus.html"},{"revision":"0d38a1b33412811bf623bf4ed8c7da44","url":"blog/tags/website.html"},{"revision":"6f90037871b7cc75e8031c3b560eda7b","url":"docs/category/advanced.html"},{"revision":"c9be18bb5b2f10f92253134aafccc8e0","url":"docs/category/cnp.html"},{"revision":"49eab7e1c5b918b50e229e666bb262d7","url":"docs/category/getting-started-1.html"},{"revision":"18ad5534d921860317379e254004bbd5","url":"docs/category/getting-started.html"},{"revision":"e9a9a9c503feaab551d962766b713333","url":"docs/category/mqtt2db.html"},{"revision":"b0b10529eee59b15747732ce3db63dff","url":"docs/cnp/advanced/config.html"},{"revision":"325047fc43b77686769bdc1adabc3e1a","url":"docs/cnp/community/contribute.html"},{"revision":"d0a4ab77b427b3ea5a199a6e90d27b94","url":"docs/cnp/getting-started/congratulations.html"},{"revision":"78c6b2f847002fe4acc3fb977ed9808b","url":"docs/cnp/getting-started/create-new-project.html"},{"revision":"354d95cb715d47b58e13421c06910890","url":"docs/cnp/getting-started/install.html"},{"revision":"daa6bfd0704a463d42c696e7d2477bb1","url":"docs/cnp/templates/create-template.html"},{"revision":"110d6be7400825ac9b2f4e07745581ee","url":"docs/cnp/templates/publish-template.html"},{"revision":"4ca7a945eca07bf0b4507d67ef21e70f","url":"docs/cnp/why.html"},{"revision":"d59fc8e3ff2db6ac4a8c33b545a8c3bf","url":"docs/crs/getting-started.html"},{"revision":"cc3a07a9c243c7f27c0770d02b70a89d","url":"docs/guessing_game.html"},{"revision":"69e46ef5b79db0f1d024ad411712f2a7","url":"docs/mqtt2db/getting-started/install.html"},{"revision":"70983d0dc1f629b789081b1b08a75649","url":"docs/mqtt2db/getting-started/mqtt2db.html"},{"revision":"c743d461894b2ef045c7d792ecd05c0a","url":"docs/mqtt2db/getting-started/start.html"},{"revision":"627365e5446fca7a95e636a3d9e846f8","url":"docs/mqtt2db/why.html"},{"revision":"6a1d390f8e3fb0a82c4f9de9fbe98f18","url":"docs/projects.html"},{"revision":"842809c75c87ad919b7b8b1aa52bf2a7","url":"index.html"},{"revision":"b15af20c80923ca6f414587bf2e7b64d","url":"manifest.json"},{"revision":"fb7ed8af79e9e7bec65e954b101f3b8a","url":"markdown-page.html"},{"revision":"7339c42c2dc3a38af3e76f534847d9c7","url":"search-index.json"},{"revision":"4b386ae89ff16183dcf917b6ff927bc8","url":"search.html"},{"revision":"7fa1a026116afe175cae818030d4ffc4","url":"img/docusaurus.png"},{"revision":"4343e07bf942aefb5f334501958fbc0e","url":"img/favicon.ico"},{"revision":"aa4fa2cdc39d33f2ee3b8f245b6d30d9","url":"img/logo.svg"},{"revision":"a6b83d7b4c3cf36cb21eb7a9721716dd","url":"img/undraw_docusaurus_mountain.svg"},{"revision":"b64ae8e3c10e5ff2ec85a653cfe6edf8","url":"img/undraw_docusaurus_react.svg"},{"revision":"8fa6e79a15c385d7b2dc4bb761a2e9e3","url":"img/undraw_docusaurus_tree.svg"}];
+    const controller = new workbox_precaching__WEBPACK_IMPORTED_MODULE_0__.PrecacheController({
+        // Safer to turn this true?
+        fallbackToNetwork: true,
+    });
     if (params.offlineMode) {
-      const requestURL = event.request.url;
-      const possibleURLs = getPossibleURLs(requestURL);
-      for (let i = 0; i < possibleURLs.length; i += 1) {
-        const possibleURL = possibleURLs[i];
-        const cacheKey = controller.getCacheKeyForURL(possibleURL);
-        if (cacheKey) {
-          const cachedResponse = caches.match(cacheKey);
-          if (params.debug) {
-            console.log('[Docusaurus-PWA][SW]: serving cached asset', {
-              requestURL,
-              possibleURL,
-              possibleURLs,
-              cacheKey,
-              cachedResponse,
-            });
-          }
-          event.respondWith(cachedResponse);
-          break;
+        controller.addToCacheList(precacheManifest);
+        if (params.debug) {
+            console.log('[Docusaurus-PWA][SW]: addToCacheList', { precacheManifest });
         }
-      }
     }
-  });
-
-  self.addEventListener('message', async (event) => {
-    if (params.debug) {
-      console.log('[Docusaurus-PWA][SW]: message event', {
-        event,
-      });
-    }
-
-    const type = event.data?.type;
-
-    if (type === 'SKIP_WAITING') {
-      self.skipWaiting();
-    }
-  });
+    await runSWCustomCode(params);
+    self.addEventListener('install', (event) => {
+        if (params.debug) {
+            console.log('[Docusaurus-PWA][SW]: install event', { event });
+        }
+        event.waitUntil(controller.install(event));
+    });
+    self.addEventListener('activate', (event) => {
+        if (params.debug) {
+            console.log('[Docusaurus-PWA][SW]: activate event', { event });
+        }
+        event.waitUntil(controller.activate(event));
+    });
+    self.addEventListener('fetch', async (event) => {
+        if (params.offlineMode) {
+            const requestURL = event.request.url;
+            const possibleURLs = getPossibleURLs(requestURL);
+            for (const possibleURL of possibleURLs) {
+                const cacheKey = controller.getCacheKeyForURL(possibleURL);
+                if (cacheKey) {
+                    const cachedResponse = caches.match(cacheKey);
+                    if (params.debug) {
+                        console.log('[Docusaurus-PWA][SW]: serving cached asset', {
+                            requestURL,
+                            possibleURL,
+                            possibleURLs,
+                            cacheKey,
+                            cachedResponse,
+                        });
+                    }
+                    event.respondWith(cachedResponse);
+                    break;
+                }
+            }
+        }
+    });
+    self.addEventListener('message', async (event) => {
+        if (params.debug) {
+            console.log('[Docusaurus-PWA][SW]: message event', { event });
+        }
+        const type = event.data?.type;
+        if (type === 'SKIP_WAITING') {
+            // lib def bug, see https://github.com/microsoft/TypeScript/issues/14877
+            self.skipWaiting();
+        }
+    });
 })();
 
 })();
