@@ -118,6 +118,11 @@ const config = {
         ],
       },
     ],
+    [
+      'ideal-image',
+      /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
+      ({ max: 1030, min: 480, disableInDev: false }),
+    ],
   ],
 
   themeConfig:
