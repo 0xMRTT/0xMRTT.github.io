@@ -123,6 +123,20 @@ const config = {
       /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
       ({ max: 1030, min: 480, disableInDev: false }),
     ],
+    [
+      'content-docs',
+      /** @type {import('@docusaurus/plugin-content-docs').Options} */
+      ({
+        id: 'projects',
+        path: 'projects',
+        routeBasePath: 'projects',
+        sidebarPath: 'sidebars.js',
+        editUrl:
+            'https://github.com/0xMRTT/0xMRTT.github.io/edit/main/projects',
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true,
+      }),
+    ],
   ],
 
   themeConfig:
