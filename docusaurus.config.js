@@ -13,6 +13,8 @@ const config = {
   projectName: '0xMRTT.github.io',
   organizationName: '0xMRTT',
   trailingSlash: false,
+  titleDelimiter: '|',
+  staticDirectories: ['static'],
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
