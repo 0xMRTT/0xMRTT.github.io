@@ -149,12 +149,7 @@ const config = {
           src: 'img/logo.svg',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'projects',
-            position: 'left',
-            label: 'Projects',
-          },
+          { to: 'projects', position: 'left', label: 'Projects' },
           {to: '/blog', label: 'Blog', position: 'left'},
           
           {
@@ -217,6 +212,7 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} 0xMRTT. Built with Docusaurus.`,
       },
+      docs: { sidebar: { hideable: true, autoCollapseCategories: true } },
       colorMode: {
         defaultMode: 'dark',
         disableSwitch: false,
@@ -233,6 +229,10 @@ const config = {
          */
         playgroundPosition: 'bottom',
       },
+      metadata: [
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'keywords', content: 'personal, 0xMRTT, projects' },
+      ],
     }),
 };
 
