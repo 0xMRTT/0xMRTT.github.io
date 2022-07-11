@@ -41,6 +41,7 @@ const config = {
         // ```
         // language: ["en", "zh"],
         // ```
+        language: ["en", "fr"],
         indexPages: true,
 
       },
