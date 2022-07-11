@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_0_x_mrtt_github_io=self.webpackChunk_0_x_mrtt_github_io||[]).push([[5893],{9285:function(t){t.exports=JSON.parse('{"title":"CNP","slug":"/category/cnp","permalink":"/fr/docs/category/cnp","navigation":{"previous":{"title":"Projects","permalink":"/fr/docs/projects"},"next":{"title":"What is it ?","permalink":"/fr/docs/cnp/why"}}}')}}]);
